@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SecureAuth Gateway – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top left, #22c55e 0, #0f172a 40%, #020617 100%);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e5e7eb;
+      padding: 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: rgba(15, 23, 42, 0.97);
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 28px 80px rgba(15, 23, 42, 0.95);
+      padding: 22px 22px 18px;
+      text-align: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: conic-gradient(from 160deg, #22c55e, #0ea5e9, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #020617;
+      font-size: 18px;
+    }
+    .brand-text-main {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .brand-text-sub {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.94rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, opacity 0.15s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #e5e7eb;
+      box-shadow: 0 18px 45px rgba(22, 163, 74, 0.9);
+    }
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.95);
+      opacity: 0.98;
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+      opacity: 0.94;
+    }
+    .foot-note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="brand-icon">2F</div>
+      <div>
+        <div class="brand-text-main">SecureAuth Gateway</div>
+        <div class="brand-text-sub">EMAIL OTP · 2FA SYSTEM</div>
+      </div>
+    </div>
+
+    <h1>Welcome to SecureAuth</h1>
+    <p class="subtitle">
+      This demo implements secure Two-Factor Authentication (2FA) using email-based One-Time Passwords (OTP).
+      Choose an option below to get started.
+    </p>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goRegister()">
+        Create a new account
+      </button>
+      <button class="btn btn-secondary" onclick="goLogin()">
+        Login with 2FA
+      </button>
+    </div>
+
+    <div class="foot-note">
+      Final Year Project · Cybersecurity & Web Security · Email OTP Verification
+    </div>
+  </div>
+
+  <script>
+    function goRegister() {
+      window.location.href = "register.html";
+    }
+    function goLogin() {
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

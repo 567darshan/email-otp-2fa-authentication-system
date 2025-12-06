@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login – Secure 2FA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top right, #38bdf8 0, #0f172a 40%, #020617 100%);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e5e7eb;
+      padding: 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(15, 23, 42, 0.97);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 0.95);
+      padding: 22px 20px 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(from 200deg, #38bdf8, #22c55e, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #020617;
+      font-size: 18px;
+    }
+    .brand-text-main {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+    .brand-text-sub {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    h1 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .field-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .input {
+      width: 100%;
+      padding: 9px;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      font-size: 0.92rem;
+      outline: none;
+      margin-bottom: 10px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
+    }
+    .input::placeholder { color: #6b7280; }
+    .input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
+      transform: translateY(-1px);
+    }
+    .btn {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, opacity 0.15s ease;
+    }
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #e5e7eb;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
+      opacity: 0.95;
+    }
+    .status {
+      margin-top: 10px;
+      min-height: 40px;
+      border-radius: 10px;
+      padding: 8px 9px;
+      font-size: 0.84rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      color: #c7d2fe;
+      white-space: pre-line;
+    }
+    .status-muted { color: #6b7280; }
+    .hint {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .link-row {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: #9ca3af;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .link-row a {
+      color: #22c55e;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .link-row a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="brand-icon">2F</div>
+      <div>
+        <div class="brand-text-main">SecureAuth Gateway</div>
+        <div class="brand-text-sub">LOGIN · 2FA WITH EMAIL OTP</div>
+      </div>
+    </div>
+
+    <h1>Sign in to your account</h1>
+    <p class="subtitle">
+      Step 1: Verify password. Step 2: Enter the OTP sent to your registered email.
+    </p>
+
+    <div class="section-label">Step 1 · Password</div>
+
+    <label class="field-label">Username</label>
+    <input id="login_username" class="input" placeholder="Registered username" />
+
+    <label class="field-label">Password</label>
+    <input id="login_password" type="password" class="input" placeholder="Registered password" />
+
+    <button class="btn btn-secondary" onclick="loginStep1()">
+      Verify password & send OTP
+    </button>
+
+    <div class="section-label" style="margin-top: 12px;">Step 2 · OTP</div>
+
+    <label class="field-label">Email OTP</label>
+    <input id="login_otp" class="input" placeholder="6-digit OTP from email" />
+
+    <button class="btn btn-primary" onclick="verifyOtp()">
+      Verify OTP & complete login
+    </button>
+
+    <div id="login_status" class="status">
+      <span class="status-muted">
+        Enter username & password first, then check your email for the OTP.
+      </span>
+    </div>
+
+    <div class="hint">
+      If OTP is wrong or expired, you can request a new one by repeating Step 1.
+    </div>
+
+    <div class="link-row">
+      <span>Don’t have an account?</span>
+      <a href="register.html">Create one →</a>
+    </div>
+  </div>
+
+  <script>
+    const BASE_URL = "http://127.0.0.1:8000";
+
+    function setText(id, msg) {
+      document.getElementById(id).textContent = msg;
+    }
+
+    async function loginStep1() {
+      const username = document.getElementById("login_username").value.trim();
+      const password = document.getElementById("login_password").value.trim();
+
+      setText("login_status", "Checking password & sending OTP...");
+
+      try {
+        const res = await fetch(BASE_URL + "/login-step1", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+        setText("login_status", data.message || "Something went wrong.");
+      } catch (err) {
+        console.error(err);
+        setText("login_status", "Error connecting to backend.");
+      }
+    }
+
+    async function verifyOtp() {
+      const username = document.getElementById("login_username").value.trim();
+      const otp = document.getElementById("login_otp").value.trim();
+
+      setText("login_status", "Verifying OTP...");
+
+      try {
+        const res = await fetch(BASE_URL + "/verify-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, otp }),
+        });
+
+        const data = await res.json();
+        setText("login_status", data.message || "Something went wrong.");
+      } catch (err) {
+        console.error(err);
+        setText("login_status", "Error connecting to backend.");
+      }
+    }
+  </script>
+</body>
+</html>
